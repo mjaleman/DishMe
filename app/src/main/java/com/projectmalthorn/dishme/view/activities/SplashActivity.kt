@@ -1,4 +1,4 @@
-package com.projectmalthorn.dishme
+package com.projectmalthorn.dishme.view.activities
 
 import android.content.Intent
 import android.os.Build
@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.projectmalthorn.dishme.R
 import com.projectmalthorn.dishme.databinding.ActivitySpalshBinding
 
 class SplashActivity : AppCompatActivity() {
