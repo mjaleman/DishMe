@@ -16,5 +16,9 @@
     <color name="secondary_dark_color">#c63f17</color>
     <color name="primary_text_color">#000000</color>
     <color name="secondary_text_color">#000000</color>
+    
+    <color name="dish_image_color">#E1E1E1</color>
+    <color name="blue_grey_700">#37474f</color>
+    <color name="grey_900">#212121</color>
 
 </resources>
