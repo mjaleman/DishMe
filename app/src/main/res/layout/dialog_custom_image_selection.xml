@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp"
+    app:chainUseRtl="true">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_select_image_action"
+        android:textColor="@color/grey_900"
+        android:textSize="@dimen/_16sdp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_camera"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/ic_vector_photo_camera"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/cd_image_icon"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_gallery"/>
+
+    <ImageView
+        android:id="@+id/iv_gallery"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/ic_vector_gallery"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toEndOf="@id/iv_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/cd_gallery_icon"/>
+
+    <TextView
+        android:id="@+id/tv_lbl_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_camera"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/iv_camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_lbl_gallery"/>
+
+    <TextView
+        android:id="@+id/tv_lbl_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_gallery"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/iv_gallery"
+        app:layout_constraintStart_toEndOf="@id/tv_lbl_camera"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

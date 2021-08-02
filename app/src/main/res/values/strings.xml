@@ -13,4 +13,10 @@
     <string name="lbl_ingredients">Ingredients</string>
     <string name="lbl_cooking_time_in_minutes">Cooking Time In Minutes</string>
     <string name="lbl_direction_to_cook">Directions To Cook</string>
+
+    <string name="title_select_image_action">Select Image Action</string>
+    <string name="lbl_camera">Camera</string>
+    <string name="lbl_gallery">Gallery</string>
+    <string name="cd_gallery_icon">Gallery Icon</string>
+    <string name="cd_image_icon">Image Icon</string>
 </resources>
