@@ -1,11 +1,13 @@
 package com.projectmalthorn.dishme.view.activities
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.projectmalthorn.dishme.R
 import com.projectmalthorn.dishme.databinding.ActivityAddUpdateDishBinding
+import com.projectmalthorn.dishme.databinding.DialogCustomImageSelectionBinding
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -33,11 +35,27 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         if(v != null){
             when(v.id){
                 R.id.iv_add_dish_image -> {
-                    Toast.makeText(this, "You have clicked the camera image",
-                        Toast.LENGTH_SHORT).show()
+                    customImageSelectionDialog()
                     return
                 }
             }
         }
+    }
+
+    private fun customImageSelectionDialog(){
+        val dialog = Dialog(this)
+        val binding: DialogCustomImageSelectionBinding =
+            DialogCustomImageSelectionBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
+
+        binding.ivCamera.setOnClickListener {
+            Toast.makeText(this, "Take a photo", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.ivGallery.setOnClickListener{
+            Toast.makeText(this, "Select a photo", Toast.LENGTH_SHORT).show()
+        }
+
+        dialog.show()
     }
 }
