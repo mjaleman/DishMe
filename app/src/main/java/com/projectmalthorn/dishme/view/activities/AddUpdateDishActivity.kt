@@ -50,10 +50,12 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.ivCamera.setOnClickListener {
             Toast.makeText(this, "Take a photo", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
         }
 
         binding.ivGallery.setOnClickListener{
             Toast.makeText(this, "Select a photo", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
         }
 
         dialog.show()
