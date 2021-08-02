@@ -11,7 +11,8 @@
         android:theme="@style/Theme.DishMe">
         <activity android:name=".view.activities.AddUpdateDishActivity"
             android:label="Add Dish"
-            android:theme="@style/Theme.DishMe.NoActionBar"></activity>
+            android:theme="@style/Theme.DishMe.NoActionBar"
+            android:configChanges="orientation"></activity>
         <activity
             android:name=".view.activities.SplashActivity"
             android:theme="@style/Theme.DishMe.NoActionBar">
