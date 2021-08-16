@@ -1,16 +1,23 @@
 package com.projectmalthorn.dishme.view.activities
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -62,12 +69,15 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         binding.ivCamera.setOnClickListener {
             Dexter.withContext(this).withPermissions(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA
             ).withListener(object:MultiplePermissionsListener{
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    if(report!!.areAllPermissionsGranted()){
-                        Toast.makeText(this@AddUpdateDishActivity, "You have camera permission now", Toast.LENGTH_SHORT).show()
+                    report?.let {
+                        if(report.areAllPermissionsGranted()){
+                            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            startForResultToLoadImage.launch(intent)
+                        }
                     }
                 }
 
@@ -85,13 +95,16 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         binding.ivGallery.setOnClickListener{
             Dexter.withContext(this).withPermissions(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+
             )
                 .withListener(object:MultiplePermissionsListener{
                     override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+
                         if(report!!.areAllPermissionsGranted()){
-                            Toast.makeText(this@AddUpdateDishActivity,
-                                "You have read and write permission", Toast.LENGTH_SHORT).show()
+                            //val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+                            // intent.addFlags()
+
                         }
                     }
 
@@ -130,4 +143,39 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 dialog.dismiss()
             }.show()
     }
+
+    private val startForResultToLoadImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                try {
+                    val selectedImage: Uri? = result.data?.data
+                    if (selectedImage != null){
+                        mBinding.ivDishImage.setImageURI(selectedImage)
+
+                    }else{
+                        // Get the bitmap directly from camera
+                        result.data?.extras?.let {
+                            val bitmap: Bitmap = result.data!!.extras!!.get("data") as Bitmap
+                            mBinding.ivDishImage.setImageBitmap(bitmap)
+
+                            mBinding.ivAddDishImage.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    this,
+                                    R.drawable.ic_vector_edit
+                                )
+                            )
+                        }
+                    }
+                } catch (error: Exception) {
+                    Log.d("log==>>", "Error : ${error.localizedMessage}")
+                }
+            }
+        }
+
+    companion object{
+        private const val CAMERA = 1
+        private const val GALLERY = 2
+    }
+
 }

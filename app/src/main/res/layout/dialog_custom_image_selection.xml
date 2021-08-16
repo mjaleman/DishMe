@@ -29,6 +29,8 @@
         android:src="@drawable/ic_vector_photo_camera"
         android:scaleType="fitXY"
         android:contentDescription="@string/cd_image_icon"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_gallery"/>
