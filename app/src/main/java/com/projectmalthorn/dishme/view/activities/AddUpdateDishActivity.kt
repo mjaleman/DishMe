@@ -13,7 +13,6 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -21,8 +20,11 @@ import androidx.core.content.ContextCompat
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.single.PermissionListener
 import com.projectmalthorn.dishme.R
 import com.projectmalthorn.dishme.databinding.ActivityAddUpdateDishBinding
 import com.projectmalthorn.dishme.databinding.DialogCustomImageSelectionBinding
@@ -93,23 +95,26 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         binding.ivGallery.setOnClickListener{
-            Dexter.withContext(this).withPermissions(
+            Dexter.withContext(this).withPermission(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
 
             )
-                .withListener(object:MultiplePermissionsListener{
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-
-                        if(report!!.areAllPermissionsGranted()){
-                            //val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-                            // intent.addFlags()
-
+                .withListener(object:PermissionListener{
+                    override fun onPermissionGranted(report: PermissionGrantedResponse?) {
+                        report?.let{
+                            val intent = Intent(Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            startForResultToLoadImage.launch(intent)
                         }
                     }
 
+                    override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                        showRationalDialogForPermissions()
+                    }
+
                     override fun onPermissionRationaleShouldBeShown(
-                        permissions: MutableList<PermissionRequest>?,
+                        permission: PermissionRequest?,
                         token: PermissionToken?
                     ) {
                         showRationalDialogForPermissions()
@@ -153,6 +158,13 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                     if (selectedImage != null){
                         mBinding.ivDishImage.setImageURI(selectedImage)
 
+                        mBinding.ivAddDishImage.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                this,
+                                R.drawable.ic_vector_edit
+                            )
+                        )
+
                     }else{
                         // Get the bitmap directly from camera
                         result.data?.extras?.let {
@@ -172,10 +184,10 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
-    companion object{
-        private const val CAMERA = 1
-        private const val GALLERY = 2
-    }
+//
+//    companion object{
+//        private const val CAMERA = 1
+//        private const val GALLERY = 2
+//    }
 
 }
