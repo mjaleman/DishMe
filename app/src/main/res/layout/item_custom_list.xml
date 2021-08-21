@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/_10sdp"
     android:orientation="vertical" >
 
@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="?attr/selectableItemBackground"
-        android:padding="@dimen/_10sdp"
         android:textAllCaps="true"
         android:textColor="@color/grey_900"
         android:textSize="@dimen/_16sdp"
@@ -20,9 +19,9 @@
         tools:text= "Item Value" />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_16sdp"
-        android:background="@color/divider_line_color"/>
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_2sdp"
+        android:background="@color/divider_line_color" />
 
 
 </LinearLayout>

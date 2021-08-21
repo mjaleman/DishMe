@@ -3,10 +3,10 @@ package com.projectmalthorn.dishme.utils
 object Constants {
     const val DISH_TYPE: String = "DishType"
     const val DISH_CATEGORY : String = "DishCategory"
-    const val DIS_COOKING_TIME: String = "DishCookingTime"
+    const val DISH_COOKING_TIME: String = "DishCookingTime"
 
     fun dishTypes():ArrayList<String>{
-        val list = ArrayList<String>()
+        val list: ArrayList<String> = ArrayList<String>()
         list.add("Breakfast")
         list.add("Lunch")
         list.add("Dinner")
