@@ -8,5 +8,5 @@ import com.projectmalthorn.dishme.model.entities.DishMe
 interface DishMeDAO {
 
     @Insert
-    suspend fun insertFavDishDetails(dishMe: DishMe)
+    suspend fun insertDishDetails(dishMe: DishMe)
 }

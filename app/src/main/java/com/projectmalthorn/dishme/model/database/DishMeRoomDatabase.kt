@@ -9,7 +9,7 @@ import com.projectmalthorn.dishme.model.entities.DishMe
 @Database(entities = [DishMe::class], version = 1)
 abstract class DishMeRoomDatabase: RoomDatabase() {
 
-    abstract fun DishMeDAO(): DishMeDAO
+    abstract fun dishMeDAO(): DishMeDAO
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
